@@ -96,13 +96,13 @@ os.environ["PORT"] = "portnumber"
 
 **Note:** ensure your TWS, or Gateway, allows connections from your IP address listed in the above file
 
-**9. Navigate to root directory, and start main.py**
+**9. Ensure you have access to [market data subscriptions](https://interactivebrokers.github.io/tws-api/market_data.html) to avoid getting "no market data permissions" error**. To access the American stock exchanges, login to Interactive Brokers dashboard, and scroll to _Market Data Subscriptions_ in the footer. Click the configure button on _Current GFIS Subscriptions_ and under the _North American_ header and _Level 1 (NBBO)_ card select the **NASDAQ (Network C/UTP)** (USD 1.50 / month), or **NYSE (Network A/CTA)** (USD 1.50 / month) to get access to live data for either of these markets. Click _continue_ and confirm the request. I chose **NASDAQ (Network C/UTP)** to access stock information like AAPL, MSFT, AMZN, FB, GOOG, and NFLX.
+
+**10. Navigate to root directory, and start main.py**
 
 ```sh
 ib-trading-bot$ python main.py
 ```
-
-**10. Ensure you have access to [market data subscriptions](https://interactivebrokers.github.io/tws-api/market_data.html) to avoid getting "no market data permissions" error**. To access the American stock exchanges, login to Interactive Brokers dashboard, and scroll to _Market Data Subscriptions_ in the footer. Click the configure button on _Current GFIS Subscriptions_ and under the _North American_ header and _Level 1 (NBBO)_ card select the **NASDAQ (Network C/UTP)** (USD 1.50 / month), or **NYSE (Network A/CTA)** (USD 1.50 / month) to get access to live data for either of these markets. Click _continue_ and confirm the request. I chose **NASDAQ (Network C/UTP)** to access stock information like AAPL, MSFT, AMZN, FB, GOOG, and NFLX.
 
 **11. TBC**
 
