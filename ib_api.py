@@ -174,7 +174,7 @@ class IBApp(IBWrapper, IBClient):
         Arguments:
             symbol (string): Ticker.
 
-        Returns: 
+        Returns:
             (Contract) Contract for the symbol.
         """
 
@@ -256,7 +256,7 @@ class IBApp(IBWrapper, IBClient):
         return that value, else call the EClient method reqPositions, wait for
         a short time and then return the class variable positions.
 
-        Returns 
+        Returns
         (dict): Dictionary of the positions information.
         """
         self.positions = []
@@ -508,7 +508,7 @@ class IBApp(IBWrapper, IBClient):
         Return saved orders for symbol. If symbol is None
         return all saved orders.
 
-        Returns 
+        Returns
             order (dict): {order_id: {order: order, contract: contract}}
         """
         if symbol is None:
@@ -567,7 +567,7 @@ class IBApp(IBWrapper, IBClient):
         Arguments:
             symbols (str|list): Equity ticker symbol or list of ticker symbols.
 
-        Returns 
+        Returns
             quotes (Panda Series): Last trade price for the symbols.
         """
         # If only a single symbol is passed convert it
@@ -604,7 +604,7 @@ class IBApp(IBWrapper, IBClient):
                 http://interactivebrokers.github.io/tws-api/historical_bars.html
             rth (bool): True to only return data within regular trading hours.
 
-        Return 
+        Return
             (pandas.DataFrame): Price history data.
         """
         if end_date is None:
@@ -622,7 +622,7 @@ class IBApp(IBWrapper, IBClient):
             duration = "{} Y".format(int(duration.days/365))
         elif duration.days < 365 and duration.days > 1:
             duration = "{} D".format(np.busday_count(
-                start_date.date(), end_date.date()))
+                start_date, end_date))
         else:
             duration = "{} S".format(duration.seconds)
         # Get the bar data for each symbol
@@ -674,7 +674,7 @@ class IBApp(IBWrapper, IBClient):
             info (str): Type of data to return (see link)
             rth (bool): Return data only in regular trading hours
 
-        Return 
+        Return
             (pandas.DataFrame): Price history data.
         """
         contract = self.make_contract(symbol)
@@ -731,7 +731,7 @@ class IBApp(IBWrapper, IBClient):
             symbol (str): Equity ticker symbol or list of ticker symbols.
             period (str): Number of days to collect data.
 
-        Returns 
+        Returns
             histogram (?): Histograms of the symbols
         """
         # If only a single symbol is passed convert it
@@ -777,7 +777,7 @@ class IBApp(IBWrapper, IBClient):
             limit_percent (float): Percent change from current quote to set limit.
             profit_percent (float): Percent change from limit price to take profit.
 
-        Returns 
+        Returns
             (dict) Parameters necessary to place a bracket order.
         """
         # Calculate a reasonable change if limit_percent is not given.
@@ -822,7 +822,7 @@ class IBApp(IBWrapper, IBClient):
             self.place_order(order_id=order_id)
 
 
-def main(ip_address, port):
+def main(ip_address, port, clientId):
     """
     Entry point into the program.
 
@@ -832,7 +832,7 @@ def main(ip_address, port):
     global API_THREAD
     try:
         app = IBApp()
-        app.connect(ip_address, port, clientId=0)
+        app.connect(ip_address, port, clientId)
         print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),
                                                       app.twsConnectionTime()))
         API_THREAD = threading.Thread(target=app.run)
@@ -846,5 +846,6 @@ if __name__ == "__main__":
     import sys
     # port number TWS server is using (paper: 7497, live: 7496)
     # port number Gateway server is using (paper: 4002, live: 4001)
-    PORT_NUMBER = sys.argv[1]
-    main(port=PORT_NUMBER)
+    IP_ADDRESS = sys.argv[1]
+    PORT_NUMBER = sys.argv[2]
+    main(ip_address=IP_ADDRESS, port=PORT_NUMBER)

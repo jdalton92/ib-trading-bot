@@ -1,6 +1,6 @@
 # Interactive Brokers Trading Bot
 
-Simple open source tool for trading shares on ASX with [Interactive Brokers Gateway API](https://interactivebrokers.github.io/tws-api/introduction.html)
+Simple open source tool for trading shares on NASDAQ with [Interactive Brokers Gateway API](https://interactivebrokers.github.io/tws-api/introduction.html)
 
 ## Authors
 
@@ -43,13 +43,13 @@ windows:
 ib-trading-bot$ venv\Scripts\activate
 ```
 
-unix/mac:
+unix \ mac:
 
 ```sh
 ib-trading-bot$ source venv/bin/activate
 ```
 
-**5. Create a wheel of the Interactive Brokers API from the directory of the TWS API installed in Step 1**
+**5. Create a wheel of the Interactive Brokers API from the directory of the TWS API installed in Step 1** as the API not distributed by pip due to licencing
 
 ```sh
 TWS API$ python setup.py bdist_wheel
@@ -67,11 +67,13 @@ TWS API$ python -m pip install wheel
 ib-trading-bot$ python3 -m pip install --user --upgrade "C:/location/to/TWS API/dist/ibapi-9.75.1-py3-none-any.whl"
 ```
 
-**Note:** the file name version will have to match your downloaded version of the Interactive Brokers API, so change _ibapi-9.75.1_ to your installed version
+**Note:** the file name version will have to match your downloaded version of the Interactive Brokers API, so change _ibapi-9.75.1_ to your downloaded version number
 
 **7. Start IB Gateway, or TWS, and login**
 
-**Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the port is matching the below;
+**Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
+
+- Port is matching the below;
 
 IB Gateway
 
@@ -83,15 +85,20 @@ IB TWS
 > Paper Trading: PORT 4002
 > Live Trading: PORT 4001
 
+- ClientId matches what you choose in Step 8
+
+- Your local host IP Address is listed as a trusted connection
+
 **8. Create a _env_config.py_ file in your project root directory**
 
-Store the following your IP address, and your port number (from above) as strings as follows:
+Store the following your IP address, your port number (from above), and clientId number (can choose any number as long as it matches what you input in Step 7.), as strings as follows:
 
 ```sh
 import os
 
 os.environ["IP_ADDRESS"] = "your.IP.address"
 os.environ["PORT"] = "portnumber"
+os.environ["CLIENTID"] = "clientIdNumber"
 ```
 
 **Note:** ensure your TWS, or Gateway, allows connections from your IP address listed in the above file
@@ -103,6 +110,8 @@ os.environ["PORT"] = "portnumber"
 ```sh
 ib-trading-bot$ python main.py
 ```
+
+**Note:** ensure you are not logged into the Interactive Brokers online portal via a web browser/mobile at the same time, or you _may_ get errors as saying Interactive Brokers TWS API only allows connections from one IP address at a time
 
 **11. TBC**
 
