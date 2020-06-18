@@ -13,7 +13,7 @@ Simple open source tool for trading shares on NASDAQ with [Interactive Brokers G
 ## Built with
 
 - [Python](https://www.python.org/) - Scripting Language
-- [Interactive Brokers Gateway](https://www.interactivebrokers.com.au/en/index.php?f=16457) - Enabling API connection to Interactive Brokers API
+- [Interactive Brokers Gateway](https://www.interactivebrokers.com.au/en/index.php?f=16457) - Enabling API connection to Interactive Brokers API (or alternatively use [Interactive Brokers TWS](https://interactivebrokers.github.io/tws-api/introduction.html) which is essentially the same API with a graphical user interface)
 - [Interactive Brokers Python API](http://interactivebrokers.github.io/) - Interactive Brokers API
 - [Visual Studio Code](https://code.visualstudio.com/) - IDE
 
@@ -71,23 +71,23 @@ ib-trading-bot$ python3 -m pip install --user --upgrade "C:/location/to/TWS API/
 
 **7. Start IB Gateway, or TWS, and login**
 
-**Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
+    + **Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
 
-- Port is matching the below;
+    + **Port is matching the below;**
 
-IB Gateway
+    + IB Gateway
 
-> Paper Trading: PORT 7497
-> Live Trading: PORT 7496
+    + > Paper Trading: PORT 7497
+    + > Live Trading: PORT 7496
 
-IB TWS
+    + IB TWS
 
-> Paper Trading: PORT 4002
-> Live Trading: PORT 4001
+    + > Paper Trading: PORT 4002
+    + > Live Trading: PORT 4001
 
-- ClientId matches what you choose in Step 8
+    + **ClientId matches what you choose in Step 8**
 
-- Your local host IP Address is listed as a trusted connection
+    + **Your local host IP Address is listed as a trusted connection**
 
 **8. Create a _env_config.py_ file in your project root directory**
 
