@@ -71,23 +71,23 @@ ib-trading-bot$ python3 -m pip install --user --upgrade "C:/location/to/TWS API/
 
 **7. Start IB Gateway, or TWS, and login**
 
-    **Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
+**Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
 
-    **Port is matching the below;**
+**Port is matching the below;**
 
-    IB Gateway
+IB Gateway
 
-    > Paper Trading: PORT 7497
-    > Live Trading: PORT 7496
+> Paper Trading: PORT 7497
+> Live Trading: PORT 7496
 
-    IB TWS
+IB TWS
 
-    > Paper Trading: PORT 4002
-    > Live Trading: PORT 4001
+> Paper Trading: PORT 4002
+> Live Trading: PORT 4001
 
-    **ClientId matches what you choose in Step 8**
+**ClientId matches what you choose in Step 8**
 
-    **Your local host IP Address is listed as a trusted connection**
+**Your local host IP Address is listed as a trusted connection**
 
 **8. Create a _env_config.py_ file in your project root directory**
 
