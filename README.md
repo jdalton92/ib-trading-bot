@@ -1,6 +1,6 @@
 # Interactive Brokers Trading Bot
 
-Simple open source tool for trading shares on NASDAQ with [Interactive Brokers Gateway API](https://interactivebrokers.github.io/tws-api/introduction.html)
+Simple open source tool for trading shares on NASDAQ with [Interactive Brokers Gateway API](https://interactivebrokers.github.io/tws-api/introduction.html), and [ib_sync](https://github.com/erdewit/ib_insync) api wrapper
 
 ## Authors
 
@@ -8,7 +8,7 @@ Simple open source tool for trading shares on NASDAQ with [Interactive Brokers G
 
 ## Credits
 
-- **[brentjm](https://github.com/brentjm/Interactive-Brokers-API)** starter python class for working with Interactive Brokers API
+- **[Ewald de Wit](https://github.com/erdewit)** for [ib_sync](https://github.com/erdewit/ib_insync), the python sync/async framework for Interactive Brokers API
 
 ## Built with
 
@@ -32,44 +32,22 @@ git clone https://github.com/jdalton92/ib-trading-bot.git
 **3. Create python virtual environment in root directory**
 
 ```sh
-ib-trading-bot$ python -m venv venv
+ib-trading-bot$ pipenv install
 ```
 
 **4. Activate virtual environment**
 
-windows:
-
 ```sh
-ib-trading-bot$ venv\Scripts\activate
+ib-trading-bot$ pipenv shell
 ```
 
-unix \ mac:
+**5. Install ib_synx**
 
 ```sh
-ib-trading-bot$ source venv/bin/activate
+ib-trading-bot$ pip install ib_sync
 ```
 
-**5. Create a wheel of the Interactive Brokers API from the directory of the TWS API installed in Step 1** as the API not distributed by pip due to licencing
-
-```sh
-TWS API$ python setup.py bdist_wheel
-```
-
-**Note:** you will likely have to install wheel package to your Python virtual environment before being able to make a wheel, with the following command
-
-```sh
-TWS API$ python -m pip install wheel
-```
-
-**6. Install Interactive Brokers API wheel**
-
-```sh
-ib-trading-bot$ python3 -m pip install --user --upgrade "C:/location/to/TWS API/dist/ibapi-9.75.1-py3-none-any.whl"
-```
-
-**Note:** the file name version will have to match your downloaded version of the Interactive Brokers API, so change _ibapi-9.75.1_ to your downloaded version number
-
-**7. Start IB Gateway, or TWS, and login**
+**6. Start IB Gateway, or TWS, and login**
 
 **Note:** ensure in your IB Gateway/TWS configuration to [enable API connections](https://interactivebrokers.github.io/tws-api/initial_setup.html#enable_api), and ensure the following settings in Configure > API > Settings:
 
@@ -87,7 +65,7 @@ IB TWS
 
 > Live Trading: PORT 4001
 
-**8. Create a _env_config.py_ file in your project root directory**
+**7. Create a _env_config.py_ file in your project root directory**
 
 Store the following your IP address, your port number (from above), and clientId number (can choose any number as long as it matches what you input in Step 7.), as strings as follows:
 
@@ -101,9 +79,9 @@ os.environ["CLIENTID"] = "clientIdNumber"
 
 **Note:** ensure your TWS, or Gateway, allows connections from your IP address listed in the above file
 
-**9. Ensure you have access to [market data subscriptions](https://interactivebrokers.github.io/tws-api/market_data.html) to avoid getting "no market data permissions" error**. To access the American stock exchanges, login to Interactive Brokers dashboard, and scroll to _Market Data Subscriptions_ in the footer. Click the configure button on _Current GFIS Subscriptions_ and under the _North American_ header and _Level 1 (NBBO)_ card select the **NASDAQ (Network C/UTP)** (USD 1.50 / month), or **NYSE (Network A/CTA)** (USD 1.50 / month) to get access to live data for either of these markets. Click _continue_ and confirm the request. I chose **NASDAQ (Network C/UTP)** to access stock information like AAPL, MSFT, AMZN, FB, GOOG, and NFLX.
+**8. Ensure you have access to [market data subscriptions](https://interactivebrokers.github.io/tws-api/market_data.html) to avoid getting "no market data permissions" error**. To access the American stock exchanges, login to Interactive Brokers dashboard, and scroll to _Market Data Subscriptions_ in the footer. Click the configure button on _Current GFIS Subscriptions_ and under the _North American_ header and _Level 1 (NBBO)_ card select the **NASDAQ (Network C/UTP)** (USD 1.50 / month), or **NYSE (Network A/CTA)** (USD 1.50 / month) to get access to live data for either of these markets. Click _continue_ and confirm the request. I chose **NASDAQ (Network C/UTP)** to access stock information like AAPL, MSFT, AMZN, FB, GOOG, and NFLX.
 
-**10. Navigate to root directory, and start main.py**
+**9. Navigate to root directory, and start main.py**
 
 ```sh
 ib-trading-bot$ python main.py

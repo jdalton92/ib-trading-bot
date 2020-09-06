@@ -1,29 +1,37 @@
 import os
 import sys
-import ib_api
 import env_config
+import ib_insync
+import numpy as np
+import pandas as pd
 from datetime import datetime, timedelta, date
 
 
-def main():
+def main(ip_address, port, clientId, ticker=None):
+    """
+    Connect through ib_sync
+    """
+    ib = ib_insync.IB()
+    ib.connect(ip_address, port, clientId, readonly=True)
+
+    contract = ib_insync.Stock(ticker, 'SMART', 'USD')
+
+    bars = ib.reqHistoricalData(
+        contract,
+        endDateTime='',
+        durationStr='5 D',
+        barSizeSetting='1 day',
+        whatToShow='MIDPOINT',
+        useRTH=True
+    )
+
+    df = ib_insync.util.df(bars)
+    print(df)
+
+if __name__ == "__main__":
     ip_address = os.getenv("IP_ADDRESS")
     port = int(os.getenv("PORT"))
     clientId = int(os.getenv("CLIENTID"))
+    ticker = sys.argv[1]
 
-    app = ib_api.main(ip_address, port, clientId)
-
-    end_date = datetime.today().date()
-    start_date = end_date - timedelta(days=15)
-    symbols = ["MSFT"]
-
-    bars = app.get_price_history(
-        symbols=symbols, rth=False, start_date=start_date, end_date=end_date)
-
-    quote = (app.get_quotes(["MSFT"]))
-    print(quote)
-
-    # print(bars.head(10))
-
-
-if __name__ == "__main__":
-    main()
+    main(ip_address, port, clientId, ticker)
